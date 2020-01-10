@@ -1,8 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const App = props => {
   const [state, setState] = useState(props);
   const { name, price } = state;
+
+  useEffect (() => {
+    console.log('Like componentDidMount or componentDidUpdate');
+  });
+
+  useEffect (() => {
+    console.log('Like componentDidMount');
+  }, []);
+
+  useEffect (() => {
+    console.log('name change only');
+  }, [name]);
+
   return (
     <>
       <p>現在の{name}は{price}です。</p>
