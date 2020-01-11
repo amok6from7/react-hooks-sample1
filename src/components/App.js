@@ -13,7 +13,7 @@ function App() {
         </div>
         <div className="form-group">
           <label htmlFor="formEventBody">ボディー</label>
-          <textareq  className="form-control" id="formEventBody" />
+          <textarea  className="form-control" id="formEventBody" />
         </div>
 
         <button className="btn btn-primary">イベントを作成する</button>
