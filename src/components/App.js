@@ -9,7 +9,7 @@ function App() {
   const [state, dispatch] = useReducer(reducer, []);
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
-  const addEvent = (e) => {
+  const addEvent = e => {
     e.preventDefault();
     dispatch({
       type: 'CREATE_EVENT',
@@ -19,6 +19,15 @@ function App() {
     setTitle('');
     setBody('')
   };
+
+  const deleteAllEvents = e => {
+    e.preventDefault();
+    const result = window.confirm('すべてのイベントを削除してもよいですか？');
+    if (result)  dispatch( {type: 'DELETE_ALL_EVENTS'});
+  }
+
+  const unCreatable  = title === '' || body === '';
+  const unDeletable = state.length === 0;
 
   return (
     <div className="container-fluid">
@@ -33,8 +42,8 @@ function App() {
           <textarea  className="form-control" id="formEventBody" value={body} onChange= {e => setBody(e.target.value)} />
         </div>
 
-        <button className="btn btn-primary" onClick={addEvent}>イベントを作成する</button>
-        <button className="btn btn-danger">全てのイベントを削除する</button>
+        <button className="btn btn-primary" onClick={addEvent} disabled={unCreatable}>イベントを作成する</button>
+        <button className="btn btn-danger" onClick={deleteAllEvents} disabled={unDeletable}>全てのイベントを削除する</button>
       </form>
 
       <h4>イベント一覧</h4>
