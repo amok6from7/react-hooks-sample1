@@ -1,7 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext } from 'react';
 
-import { DELETE_EVENT } from "../actions";
-import AppContext from "../contexts/AppContext";
+import { DELETE_EVENT, ADD_OPERATION_LOG } from '../actions';
+import AppContext from '../contexts/AppContext';
+import { timeCurrentIso8601 } from '../utils';
 
 const Event = ({ event }) => {
   const { dispatch } = useContext(AppContext);
@@ -15,6 +16,11 @@ const Event = ({ event }) => {
       type: DELETE_EVENT,
       id
     });
+    dispatch({
+      type: ADD_OPERATION_LOG,
+      description: `イベント[${event.title}]を削除しました。`,
+      operatedAt: timeCurrentIso8601()
+    });
   };
   return (
     <tr>
@@ -22,7 +28,7 @@ const Event = ({ event }) => {
       <td>{event.title}</td>
       <td>{event.body}</td>
       <td>
-        <button className="btn btn-danger" onClick={handleClickDeleteButton}>
+        <button className='btn btn-danger' onClick={handleClickDeleteButton}>
           削除
         </button>
       </td>
